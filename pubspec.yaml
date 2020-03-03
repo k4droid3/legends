@@ -38,7 +38,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - images/anshul.jpg
+    - images/benedict.jpeg
 
   fonts:
     - family: Pacifico
