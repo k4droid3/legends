@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:legends/login_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,23 +20,30 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Container(
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(
-                child: RaisedButton(
-                  child: Center(
-                    child: Text("Click Me!"),
-                  ),
-                  onPressed: explore,
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+      initialRoute: LoginScreen.id,
+      routes: {
+        LoginScreen.id: (context) => LoginScreen(),
+      },
     );
   }
+//    return MaterialApp(
+//      home: Container(
+//        child: SafeArea(
+//          child: Column(
+//            crossAxisAlignment: CrossAxisAlignment.stretch,
+//            children: <Widget>[
+//              Expanded(
+//                child: RaisedButton(
+//                  child: Center(
+//                    child: Text("Click Me!"),
+//                  ),
+//                  onPressed: explore,
+//                ),
+//              )
+//            ],
+//          ),
+//        ),
+//      ),
+//    );
+//  }
 }
