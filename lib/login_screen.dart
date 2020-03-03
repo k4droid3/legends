@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
+import 'group_chat_screen.dart';
 
 class LoginScreen extends StatelessWidget {
-  static String id = "loginscreen";
+  static const String id = "loginscreen";
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         backgroundColor: Colors.teal,
         body: SafeArea(
           child: Container(
@@ -99,13 +99,14 @@ class LoginScreen extends StatelessWidget {
                 ),
                 OutlineButton(
                   highlightElevation: 5.0,
+                  highlightedBorderColor: Colors.brown[700],
                   color: Colors.brown,
                   textColor: Colors.white70,
                   borderSide: BorderSide(
                     color: Colors.white70,
                   ),
                   onPressed: () {
-                    print('someone Logged in!');
+                    Navigator.pushNamed(context, GroupChatScreen.id);
                   },
                   child: Text(
                     "LogIn",
@@ -115,7 +116,6 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
