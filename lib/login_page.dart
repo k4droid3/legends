@@ -96,6 +96,23 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.0),
+                    color: Colors.white54,
+                  ),
+                  child: FlatButton(
+                    onPressed: () {
+                      print('someone Logged in!');
+                    },
+                    child: Text(
+                      "Log In",
+                      style: TextStyle(
+                        color: Colors.teal[700],
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           ),
