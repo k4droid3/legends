@@ -9,8 +9,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  var _file;
+
   void explore() async {
-    var file = await FilePicker.getFile(type: FileType.ANY);
+    _file = await FilePicker.getFile(type: FileType.ANY);
   }
 
   @override
@@ -23,6 +26,9 @@ class _MyAppState extends State<MyApp> {
             children: <Widget>[
               Expanded(
                 child: RaisedButton(
+                  child: Center(
+                    child: Text("Click Me!"),
+                  ),
                   onPressed: explore,
                 ),
               )
