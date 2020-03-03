@@ -30,6 +30,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 Text(
                   "SENIOR DEVELOPER",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'SourceSansPro',
                     fontSize: 20.0,
