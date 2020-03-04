@@ -17,3 +17,4 @@ samples, guidance on mobile development, and a full API reference.
 
 Login screen :-
 
+<img src="images/legends_screenshot.jpg" width="200" height="400">
