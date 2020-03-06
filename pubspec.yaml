@@ -39,6 +39,7 @@ flutter:
 
   assets:
     - images/benedict.jpeg
+    - images/background.jpg
 
   fonts:
     - family: Pacifico
