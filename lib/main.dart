@@ -17,18 +17,20 @@ class _MyAppState extends State<MyApp> {
   String incomingMessage = "incoming Empty...";
   String _message = "message from flutter.";
 
-  Future<void> _getMessage() async {
-    String message;
+  Future<void> _sendMessage(String message) async {
+    String eval;
     try {
-      final String result = await platform.invokeMethod('getMessage');
-      message = result;
+      final String result =
+          await platform.invokeMethod('sendMessage', <String, dynamic>{
+        "message_flutter": message,
+      });
+      eval = result;
     } on PlatformException catch (e) {
-      message = "Error: unable to call method ...";
+      eval = "Failed :(";
     }
-    _message = message;
 
     setState(() {
-      incomingMessage = _message;
+      incomingMessage = eval;
     });
   }
 
@@ -65,16 +67,19 @@ class _MyAppState extends State<MyApp> {
                       onSubmitted: (String message) {
                         setState(() {
                           outgoingMessage = message;
+                          _message = message;
                         });
                       },
                     ),
                   ),
                   RaisedButton(
                     child: Text(
-                      'getMessage',
+                      'sendMessage',
                     ),
-                    onPressed: _getMessage,
-                  )
+                    onPressed: () {
+                      _sendMessage(_message);
+                    },
+                  ),
                 ],
               ),
             ],
