@@ -1,6 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:legends/test.dart';
+import 'package:xmpp_stone/xmpp_stone.dart' as xmpp;
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart';
 
-void main() => runApp(MyApp());
+var messageByteStream = Stream.empty();
+String gand;
+
+void main() {
+  runApp(MyApp());
+}
+
+void runxmpp() async {
+  await xmppManager();
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -10,6 +24,21 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String incomingMessage = "incoming Empty...";
   String outgoingMessage = "outgoing Empty...";
+//  String str;
+//  final myController = TextEditingController();
+//
+//  textListener() {
+//    setState(() {
+//      str = myController.text;
+//    });
+//  }
+//
+//  @override
+//  void initState() {
+//    super.initState();
+//    myController.addListener(textListener(string));
+//  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,11 +64,20 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               TextField(
+                autofocus: false,
                 autocorrect: false,
                 onSubmitted: (String message) {
                   setState(() {
+                    gand = message;
                     outgoingMessage = message;
                   });
+                },
+              ),
+              RaisedButton(
+                child: Text("try karke dekho"),
+                onPressed: () {
+                  messageByteStream = ByteStream.fromBytes(ascii.encode(gand))
+                      .asBroadcastStream();
                 },
               ),
             ],
