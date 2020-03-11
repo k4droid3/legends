@@ -122,9 +122,6 @@ class LoginScreen extends StatelessWidget {
                   child: TextField(
                     cursorColor: Colors.teal[100],
                     obscureText: true,
-                    onChanged: (value) {
-                      //Do something with the user input.
-                    },
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.lock),
                       labelText: "Password",

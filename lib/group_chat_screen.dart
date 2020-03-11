@@ -9,6 +9,14 @@ class GroupChatScreen extends StatefulWidget {
 }
 
 class _GroupChatScreenState extends State<GroupChatScreen> {
+  TextEditingController textEditingController;
+
+  @override
+  void initState() {
+    textEditingController = TextEditingController();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -34,82 +42,93 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
             },
           ),
         ),
-        body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("images/background.jpg"),
-              fit: BoxFit.fill,
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("images/background.jpg"),
+                fit: BoxFit.fill,
+              ),
             ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              SafeArea(
-                maintainBottomViewPadding: true,
-                bottom: true,
-                child: Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: TextField(
-                          enabled: true,
-                          autofocus: true,
-                          cursorColor: Colors.white,
-                          decoration: InputDecoration(
-                            hintText: "Enter Text ...",
-                            hintStyle: TextStyle(
-                              color: Colors.white54,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                SafeArea(
+                  maintainBottomViewPadding: true,
+                  bottom: true,
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Expanded(
+                          child: TextField(
+                            controller: textEditingController,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            enabled: true,
+                            autofocus: true,
+                            cursorColor: Colors.white,
+                            decoration: InputDecoration(
+                              hintText: "Enter Text ...",
+                              hintStyle: TextStyle(
+                                color: Colors.white54,
+                              ),
+                              filled: true,
+                              fillColor: Colors.teal[500],
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 5.0, horizontal: 20.0),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(32.0)),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(32.0)),
+                                borderSide:
+                                    BorderSide(color: Colors.teal, width: 0.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(32.0)),
+                                borderSide:
+                                    BorderSide(color: Colors.teal, width: 0.0),
+                              ),
                             ),
-                            filled: true,
-                            fillColor: Colors.teal[500],
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 5.0, horizontal: 20.0),
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(32.0)),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(32.0)),
-                              borderSide:
-                                  BorderSide(color: Colors.teal, width: 0.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(32.0)),
-                              borderSide:
-                                  BorderSide(color: Colors.teal, width: 0.0),
-                            ),
+                            style: TextStyle(color: Colors.white),
                           ),
-                          style: TextStyle(color: Colors.white),
                         ),
-                      ),
-                      SizedBox(
-                        width: 5.0,
-                      ),
-                      Container(
-                        child: FloatingActionButton(
-                          backgroundColor: Colors.teal[500],
-                          splashColor: Colors.brown,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 2.0),
-                            child: Icon(
-                              Icons.send,
-                              color: Colors.white,
-                              size: 25.0,
+                        SizedBox(
+                          width: 5.0,
+                        ),
+                        Container(
+                          child: FloatingActionButton(
+                            backgroundColor: Colors.teal[500],
+                            splashColor: Colors.brown,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 2.0),
+                              child: Icon(
+                                Icons.send,
+                                color: Colors.white,
+                                size: 25.0,
+                              ),
                             ),
+                            onPressed: () {
+                              print("someone replied!");
+                              FocusScope.of(context).requestFocus(FocusNode());
+                              textEditingController.clear();
+                            },
                           ),
-                          onPressed: () {
-                            print("someone replied!");
-                          },
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
