@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
     var auth = {
       "user_jid": "bot@legends.com",
       "password": "qwerty",
-      "host": "172.25.173.138",
+      "host": "172.25.163.196",
       "port": 5222
     };
 
@@ -74,6 +74,14 @@ class _MyAppState extends State<MyApp> {
 
   void giveMessage(String message) async {
     await flutterXmpp.sendMessage("k4droid3@legends.com", message, "loda");
+    setState(() {
+      outgoingMessage = message;
+    });
+  }
+
+  void giveGroupMessage(String message) async {
+    await flutterXmpp.sendGroupMessage(
+        "group@conference.legends.com", message, "lasson");
     setState(() {
       outgoingMessage = message;
     });
