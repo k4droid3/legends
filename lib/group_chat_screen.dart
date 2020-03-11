@@ -1,15 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:legends/Xmpp_handler.dart';
 
 class GroupChatScreen extends StatefulWidget {
   static const String id = "groupchatscreen";
+
   @override
   _GroupChatScreenState createState() => _GroupChatScreenState();
 }
 
 class _GroupChatScreenState extends State<GroupChatScreen> {
   TextEditingController textEditingController;
+  String mssg;
 
   @override
   void initState() {
@@ -38,6 +41,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
               child: Icon(Icons.exit_to_app),
             ),
             onPressed: () {
+              flutterXmpp.stop();
               Navigator.pop(context);
             },
           ),
@@ -72,6 +76,9 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                             enabled: true,
                             autofocus: true,
                             cursorColor: Colors.white,
+                            onChanged: (String message) {
+                              mssg = message;
+                            },
                             decoration: InputDecoration(
                               hintText: "Enter Text ...",
                               hintStyle: TextStyle(
@@ -117,7 +124,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                               ),
                             ),
                             onPressed: () {
-                              print("someone replied!");
+                              giveMessage(mssg);
                               FocusScope.of(context).requestFocus(FocusNode());
                               textEditingController.clear();
                             },
