@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import 'group_chat_screen.dart';
+import 'package:legends/Xmpp_handler.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String id = "loginscreen";
@@ -161,7 +162,8 @@ class LoginScreen extends StatelessWidget {
                 borderSide: BorderSide(
                   color: Colors.white70,
                 ),
-                onPressed: () {
+                onPressed: () async {
+                  await initXmpp();
                   Navigator.pushNamed(context, GroupChatScreen.id);
                 },
                 child: Text(
