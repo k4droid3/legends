@@ -4,14 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:flutter_xmpp/flutter_xmpp.dart';
+import 'package:legends/ip_handler.dart';
+import 'package:legends/main.dart';
 
 FlutterXmpp flutterXmpp;
 
 Future<void> initXmpp() async {
+//  String ip = await getIP();
+
   var auth = {
     "user_jid": "bot@legends.com",
     "password": "qwerty",
-    "host": "172.25.163.196",
+    "host": "172.25.172.209",
+//    "host": ip,
     "port": 5222
   };
 
@@ -29,6 +34,7 @@ Future<void> initXmpp() async {
 
 void _onReceive(dynamic event) {
   print(event);
+//  MyNotification(title: "chitthi ayi hai").dispatch(mainBuildContext);
 //  if (event["type"] == "incoming") {
 //    setState(() {
 //      incomingMessage = event['body'];
@@ -50,3 +56,9 @@ void giveMessage(String message) async {
 //    outgoingMessage = message;
 //  });
 }
+
+//class MyNotification extends Notification {
+//  final String title;
+//
+//  const MyNotification({this.title});
+//}
