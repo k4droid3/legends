@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:flutter_xmpp/flutter_xmpp.dart';
+import 'package:legends/Xmpp_handler.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -13,114 +16,30 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String incomingMessage = "incoming Empty...";
-  String outgoingMessage = "outgoing Empty...";
-
-//  String name = "";
-//  String message = "";
-//  String id = "";
-//  String reply = "";
-
-  FlutterXmpp flutterXmpp;
-
   @override
   void initState() {
-    super.initState();
     initXmpp();
+    super.initState();
   }
 
   @override
-  void dispose() async {
-    await flutterXmpp.stop();
+  void dispose() {
+    flutterXmpp.stop();
     super.dispose();
-  }
-
-  Future<void> initXmpp() async {
-    var auth = {
-      "user_jid": "bot@legends.com",
-      "password": "qwerty",
-      "host": "172.25.163.196",
-      "port": 5222
-    };
-
-    flutterXmpp = new FlutterXmpp(auth);
-    print("AUTHENTICATED O_O");
-
-    await flutterXmpp.login();
-
-    await flutterXmpp.start(_onReceive, _onError);
-
-    sleep(const Duration(seconds: 2));
-
-    print(await flutterXmpp.currentState());
-  }
-
-  void _onReceive(dynamic event) {
-    print(event);
-    if (event["type"] == "incoming") {
-      setState(() {
-        incomingMessage = event['body'];
-      });
-    } else {
-      setState(() {
-        outgoingMessage = event['body'];
-      });
-    }
-  }
-
-  void _onError(Object error) {
-    print(error);
-  }
-
-  void giveMessage(String message) async {
-    await flutterXmpp.sendMessage("k4droid3@legends.com", message, "loda");
-    setState(() {
-      outgoingMessage = message;
-    });
-  }
-
-  void giveGroupMessage(String message) async {
-    await flutterXmpp.sendGroupMessage(
-        "group@conference.legends.com", message, "lasson");
-    setState(() {
-      outgoingMessage = message;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  child: Text(
-                    incomingMessage,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  child: Text(
-                    outgoingMessage,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              TextField(
-                autocorrect: false,
-                onSubmitted: (String message) {
-                  setState(() {
-                    giveMessage(message);
-                  });
-                },
-              ),
-            ],
-          ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Container(),
+            TextField(
+              onSubmitted: (String message) {},
+            ),
+          ],
         ),
       ),
     );
