@@ -7,11 +7,13 @@ import 'package:flutter_xmpp/flutter_xmpp.dart';
 import 'package:legends/Xmpp_handler.dart';
 import 'package:legends/message_list.dart';
 
+StreamController<List<String>> databaseController =
+    StreamController<List<String>>();
 Stream<List<String>> stream;
 BuildContext mainBuildContext;
 
 void main() async {
-  stream = Stream.value(messageDatabase).asBroadcastStream();
+  stream = databaseController.stream.asBroadcastStream();
   runApp(MyApp());
 }
 
@@ -70,9 +72,7 @@ class _MyAppState extends State<MyApp> {
             ),
             TextField(
               onSubmitted: (String message) {
-                setState(() {
-                  messageDatabase.add(message);
-                });
+                giveMessage(message);
               },
             ),
           ],

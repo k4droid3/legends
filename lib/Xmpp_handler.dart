@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:flutter_xmpp/flutter_xmpp.dart';
 import 'package:legends/ip_handler.dart';
 import 'package:legends/main.dart';
+import 'package:legends/message_list.dart';
 
 FlutterXmpp flutterXmpp;
 
@@ -35,10 +36,11 @@ Future<void> initXmpp() async {
 void _onReceive(dynamic event) {
   print(event);
 //  MyNotification(title: "chitthi ayi hai").dispatch(mainBuildContext);
-//  if (event["type"] == "incoming") {
-//    setState(() {
-//      incomingMessage = event['body'];
-//    });
+  if (event["type"] == "incoming") {
+    messageDatabase.add(event['body']);
+    databaseController.add(messageDatabase);
+  }
+  ;
 //  } else {
 //    setState(() {
 //      outgoingMessage = event['body'];
@@ -52,6 +54,8 @@ void _onError(Object error) {
 
 void giveMessage(String message) async {
   await flutterXmpp.sendMessage("k4droid3@legends.com", message, "loda");
+  messageDatabase.add(message);
+  databaseController.add(messageDatabase);
 //  setState(() {
 //    outgoingMessage = message;
 //  });
