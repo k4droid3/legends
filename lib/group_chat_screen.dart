@@ -181,24 +181,25 @@ class MessagesStream extends StatelessWidget {
       stream: stream,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          List<MessageBubble> MessageBubbles = [];
-          final messages = snapshot.data;
+          List<MessageBubble> messageBubbles = [];
+          final messages = snapshot.data.reversed;
           for (var message in messages) {
             final messageText = message.data;
-            final messageSender = message.from;
+            final messageSender = message.from.split('@')[0];
 
-            final currentUser = loggedInUser;
+            final currentUser = loggedInUser.split('@')[0];
 
             final messageBubble = MessageBubble(
               sender: messageSender,
               text: messageText,
               isMe: currentUser == messageSender,
             );
-            MessageBubbles.add(messageBubble);
+            messageBubbles.add(messageBubble);
           }
           return ListView(
+            reverse: true,
             padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-            children: MessageBubbles,
+            children: messageBubbles,
           );
         } else {
           return Column(
