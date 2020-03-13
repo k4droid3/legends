@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'dart:math';
 import 'package:legends/Xmpp_handler.dart';
 
@@ -64,7 +65,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                   maintainBottomViewPadding: true,
                   bottom: true,
                   child: Padding(
-                    padding: const EdgeInsets.all(4.0),
+                    padding: EdgeInsets.all(5.0),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
@@ -84,7 +85,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                               hintStyle: TextStyle(
                                 color: Colors.white54,
                               ),
-                              filled: true,
+                              filled: false,
                               fillColor: Colors.teal[500],
                               contentPadding: EdgeInsets.symmetric(
                                   vertical: 5.0, horizontal: 20.0),
@@ -111,23 +112,37 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                         SizedBox(
                           width: 5.0,
                         ),
-                        Container(
-                          child: FloatingActionButton(
-                            backgroundColor: Colors.teal[500],
-                            splashColor: Colors.brown,
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 2.0),
-                              child: Icon(
-                                Icons.send,
-                                color: Colors.white,
-                                size: 25.0,
-                              ),
+                        ClipOval(
+                          child: Material(
+                            shape: CircleBorder(
+                              side: BorderSide(
+                                  color: Colors.transparent, width: 0.0),
                             ),
-                            onPressed: () {
-                              giveMessage(mssg);
-                              FocusScope.of(context).requestFocus(FocusNode());
-                              textEditingController.clear();
-                            },
+                            color: Colors.teal[500],
+                            child: InkWell(
+//                              radius: 5.0,
+//                              borderRadius:
+//                                  BorderRadius.all(Radius.circular(30.0)),
+//                          padding: EdgeInsets.zero,
+//                          shape: CircleBorder(),
+//                          color: Colors.teal[500],
+                              splashColor: Colors.brown,
+                              child: SizedBox(
+                                width: 49,
+                                height: 49,
+                                child: Icon(
+                                  Icons.send,
+                                  color: Colors.white,
+                                  size: 22,
+                                ),
+                              ),
+                              onTap: () {
+                                giveMessage(mssg);
+                                FocusScope.of(context)
+                                    .requestFocus(FocusNode());
+                                textEditingController.clear();
+                              },
+                            ),
                           ),
                         ),
                       ],
