@@ -5,15 +5,17 @@ import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:flutter_xmpp/flutter_xmpp.dart';
 import 'package:legends/group_chat_screen.dart';
+import 'package:legends/ip_handler.dart';
 import 'package:legends/login_screen.dart';
 
 FlutterXmpp flutterXmpp;
 
 Future<void> initXmpp() async {
+  final String ip = await getIP();
   var auth = {
     "user_jid": loggedInUser,
     "password": userPassword,
-    "host": "172.25.172.209",
+    "host": ip,
     "port": 5222
   };
 
