@@ -4,14 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:flutter_xmpp/flutter_xmpp.dart';
+import 'package:legends/group_chat_screen.dart';
+import 'package:legends/login_screen.dart';
 
 FlutterXmpp flutterXmpp;
 
 Future<void> initXmpp() async {
   var auth = {
-    "user_jid": "bot@legends.com",
-    "password": "qwerty",
-    "host": "172.25.163.196",
+    "user_jid": loggedInUser,
+    "password": userPassword,
+    "host": "172.25.172.209",
     "port": 5222
   };
 
@@ -29,6 +31,14 @@ Future<void> initXmpp() async {
 
 void _onReceive(dynamic event) {
   print(event);
+  MyMessage newMessage = MyMessage();
+  if (event["type"] == "incoming") {
+    newMessage.from = event['from'];
+    newMessage.to = event['to'];
+    newMessage.data = event['body'];
+    messageDatabase.add(newMessage);
+    databaseController.add(messageDatabase);
+  }
 //  if (event["type"] == "incoming") {
 //    setState(() {
 //      incomingMessage = event['body'];
@@ -45,8 +55,18 @@ void _onError(Object error) {
 }
 
 void giveMessage(String message) async {
-  await flutterXmpp.sendMessage("k4droid3@legends.com", message, "loda");
+  MyMessage newMessage = MyMessage();
+  newMessage.from = loggedInUser;
+  newMessage.to = "k4droid3@legends.com";
+  newMessage.data = message;
+  await flutterXmpp.sendMessage(newMessage.to, message, "loda");
+  messageDatabase.add(newMessage);
+  databaseController.add(messageDatabase);
 //  setState(() {
 //    outgoingMessage = message;
 //  });
+}
+
+class MyMessage {
+  String from, to, data;
 }

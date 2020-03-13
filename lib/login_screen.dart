@@ -3,6 +3,9 @@ import "package:flutter/material.dart";
 import 'group_chat_screen.dart';
 import 'package:legends/Xmpp_handler.dart';
 
+String loggedInUser;
+String userPassword;
+
 class LoginScreen extends StatelessWidget {
   static const String id = "loginscreen";
   @override
@@ -54,8 +57,8 @@ class LoginScreen extends StatelessWidget {
                   ),
                   child: TextField(
                     cursorColor: Colors.teal[100],
-                    onChanged: (value) {
-                      //Do something with the user input.
+                    onChanged: (String value) {
+                      loggedInUser = value;
                     },
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.person),
@@ -123,6 +126,9 @@ class LoginScreen extends StatelessWidget {
                   child: TextField(
                     cursorColor: Colors.teal[100],
                     obscureText: true,
+                    onChanged: (String value) {
+                      userPassword = value;
+                    },
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.lock),
                       labelText: "Password",
